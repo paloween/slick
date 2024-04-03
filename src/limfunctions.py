@@ -304,7 +304,11 @@ def creating_table(cloud_list, df_basic, output_dir):
             #df_aux_2 = pd.DataFrame({'Galaxy_ID':int(gal_id), 'Cloud_ID':int(c), 'Mcloud':out2[0], 'Rcloud':out2[1], 'Pressure':Pressure, 'Metallicity':out2[2], 'RadField':out2[3], 'DMR':DMR, 'Redshift':out2[4], 'H2_lcii':out2[5], 'CO10':out2[6], 'CO21':out2[7], 'CO32':out2[8], 'CO43':out2[9], 'CO54':out2[10], 'CO10_intTB':out2[11], 'CO21_intTB':out2[12], 'CO32_intTB':out2[13], 'CO43_intTB':out2[14], 'CO54_intTB':out2[15], 'CI10':out2[16], 'CI21':out2[17], 'CO65':out2[18], 'CO76':out2[19], 'CO87':out2[20], 'CO98':out2[21], 'CO65_intTB':out2[22], 'CO76_intTB':out2[23], 'CO87_intTB':out2[24], 'CO98_intTB':out2[25], 'OI1':out2[26], 'OI2':out2[27], 'OI3':out2[28], 'fH2':out2[29], 'fH':out2[30], 'fHp':out2[31], 'fCO':out2[32], 'fCp':out2[33], 'fC':out2[34], 'fO':out2[35], 'fOHx':out2[36], 'gas_temp':out2[37], 'dust_temp':out2[38], 'n_dens':out2[39], 'col_dens':out2[40], 'Mol_gas':out2[41], 'CO10_areal_TB':out2[42], 'Time':time, 'NZONES':n_zones_2, 'Zones_Converged':np.sum(out2[43])},index=[0])
             df = pd.concat([df,df_aux],ignore_index=True)
             #df = pd.concat([df,df_aux,df_aux_2],ignore_index=True)
-        except:
+        except Exception as exc:
+            print('Exception while calculating luminosity\n')
+            print(exc)
+            import traceback
+            traceback.print_exc()
             t2 = datetime.now()
             time = (t2-t1).total_seconds()
             gas_temp,dust_temp,n_dens,col_dens = compute_temp_dens(Mcloud*u.Msun,Rcloud*u.pc,Tg=-99*np.ones(16),Td=-99*np.ones(16),NZONES=16)
