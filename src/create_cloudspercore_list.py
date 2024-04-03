@@ -6,9 +6,10 @@ from tqdm import tqdm
 import random
 import glob
 random.seed(10)
+import ast
 
 def create_cloudspercore_list(config):
-    
+     
     obj = caesar.load(config["caesarfilename"])
 
     if config["mode"] == 'randomize':
@@ -16,12 +17,16 @@ def create_cloudspercore_list(config):
         galaxies_list = random.sample(galaxies_list, int(config["n_galaxies_sample"]))
     #elif config["mode"] == 'centergal':
         #galaxies_list = [(gal.GroupID,gal.glist) for gal in obj.galaxies][0]
-    else:
+    elif config["mode"] == 'total':
         galaxies_list = [(gal.GroupID,gal.glist) for gal in obj.galaxies]
+    elif config["mode"] == 'single':
+        galaxies_list = [(gal.GroupID,gal.glist) for gal in obj.galaxies]
+        galaxies_list = [galaxies_list[i] for i in ast.literal_eval(config['gal_ids'])]
+    
 
     n_of_gals = len(galaxies_list)
     n_of_clouds = sum([len(galaxies_list[i][1]) for i in np.arange(n_of_gals)])
-    n_clouds_per_line = 1000
+    n_clouds_per_line = 200
 
     param_filename = f'{config["output_dir"]}/Clouds_per_Core.txt'
     with open(param_filename, 'w') as f:

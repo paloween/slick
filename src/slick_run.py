@@ -21,4 +21,5 @@ config = parse_parameters(args.parameters)
 df_basic = pd.read_csv(glob.glob(f'{config["basictable_dir"]}/Basic*')[0])
 
 creating_table(cloud_list, df_basic, config["output_dir"])
+
 print("Slick run completed successfully")

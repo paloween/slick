@@ -1,0 +1,8 @@
+*.pyc
+*.dat
+*.ipynb
+.DS_Store
+run.sh
+slick_run_jobscript.sh
+src/*old.py
+src/*ml*
